@@ -4,7 +4,7 @@
 
 **You work hard. Come spend a couple hours outside.**
 
-Pace is a stand-up paddleboard community for founders in Vancouver. Once or twice a week, a small group of founders and early team members meets at Jericho Beach at sunset and spends a couple of hours on the water. The activity is the front door. The people are the reason you come back.
+Pace is a stand-up paddleboard community for founders in Kitsilano, Vancouver. Once or twice a week, a small group of founders and early team members meets at Jericho Beach, just west of Kits, at sunset and spends a couple of hours on the water. The activity is the front door. The people are the reason you come back.
 
 ## Live demo
 

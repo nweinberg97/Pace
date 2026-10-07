@@ -167,7 +167,7 @@ function landingView() {
       <div class="hero-inner">
         <div class="hero-mark">${mark({ size: 92, tone: '#fff' })}</div>
         <h1 class="hero-title">You work hard.<br>Come spend a couple hours outside.</h1>
-        <p class="hero-copy">Pace is a stand-up paddleboard community for founders in Vancouver. One sunset a week on the water with people who are building things too.</p>
+        <p class="hero-copy">Pace is a stand-up paddleboard community for founders in Kitsilano. One sunset a week on the water with people building things a few blocks from you.</p>
         <div class="hero-actions">
           <button class="btn btn-light" data-scroll="waitlist">Join the Summer</button>
           <button class="btn btn-ghost-light" data-scroll="ritual">See how it works</button>
@@ -175,7 +175,7 @@ function landingView() {
       </div>
 
       <div class="hero-foot">
-        <span>A paddleboard community for founders</span>
+        <span>A paddleboard community for Kitsilano founders</span>
         <span>Thursdays and Sundays at sunset, Jericho Beach</span>
       </div>
     </section>
@@ -226,7 +226,7 @@ function landingView() {
       <div class="wrap">
         <div class="section-head">
           <h2>The activity is the front door.<br>The people are the reason you come back.</h2>
-          <p>Founders of software companies, restaurants, studios and hardware startups, plus the first few people who joined them. Some come to talk shop, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
+          <p>Founders building in Kitsilano: software companies on West 4th, a restaurant opening next spring, design studios and garage hardware startups, plus the first few people who joined them. Some come to talk shop, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
         </div>
         <div class="people-row">
           ${featured.map((p) => `
@@ -277,7 +277,7 @@ function landingView() {
         </div>
         <div class="partner">
           <h2 class="h-small">Where we paddle</h2>
-          <p>Sessions launch from Jericho SUP at Jericho Beach. Pace books boards for the group through their rental desk, the same way any group would.</p>
+          <p>Sessions launch from Jericho SUP at Jericho Beach, just west of Kits. Pace books boards for the group through their rental desk, the same way any group would.</p>
           <div class="partner-split">
             <div>
               <h3>Rented from Jericho SUP</h3>
@@ -352,7 +352,7 @@ function waitlistBody() {
   }
   return `
     <h2>Come find your pace this summer.</h2>
-    <p>Pace is for founders and early teams in Vancouver. Join the waitlist and we’ll send the first sessions when they open. One email, maybe two.</p>
+    <p>Pace is for founders and early teams in Kitsilano. Join the waitlist and we’ll send the first sessions when they open. One email, maybe two.</p>
     <form class="waitlist-form" data-form="waitlist" novalidate>
       <label class="sr-only" for="wl-email">Email address</label>
       <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Email address" required>

@@ -20,67 +20,68 @@ export const IMAGES = {
 const face = (id) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=faces&w=600&h=750&q=80`;
 
-// Everyone here is a founder or one of the first people on a founding team.
+// Everyone here is a founder (or one of the first people on a founding team)
+// building something in Kitsilano.
 export const MEMBERS = [
   {
     id: 'maya', name: 'Maya', last: 'Chen', role: 'Founder, design tools',
-    bio: 'Building tools that make work feel a little more human.',
-    photo: face('1765828593108-486f4c75ad43'), since: 'Summer 2025', paddles: 14,
+    bio: 'Building tools that make work feel a little more human. Works out of a studio on West 4th.',
+    photo: face('1612994451093-c6791c8989cd'), since: 'Summer 2025', paddles: 14,
   },
   {
     id: 'ethan', name: 'Ethan', last: 'Brooks', role: 'Founder, fintech',
-    bio: 'Currently figuring out how to build a company without living inside it.',
-    photo: face('1522529599102-193c0d76b5b6'), since: 'Summer 2025', paddles: 11,
+    bio: 'Currently figuring out how to build a company without living inside it. Lives two blocks from Kits Beach.',
+    photo: face('1511200088071-be841f02c32e'), since: 'Summer 2025', paddles: 11,
   },
   {
     id: 'sarah', name: 'Sarah', last: 'Okafor', role: 'Solo founder',
-    bio: 'Usually somewhere between a trail and a spreadsheet.',
-    photo: face('1762344352930-1e459b3e8c88'), since: 'Summer 2025', paddles: 9,
+    bio: 'Usually somewhere between Kits Beach and a spreadsheet.',
+    photo: face('1624486217002-846e654ac969'), since: 'Summer 2025', paddles: 9,
   },
   {
     id: 'jonah', name: 'Jonah', last: 'Levi', role: 'Co-founder, climate hardware',
-    bio: 'One tiny company, one very patient partner, and a standing Thursday on the water.',
+    bio: 'Building batteries in a garage off Macdonald. Keeps a standing Thursday on the water.',
     photo: face('1532032877540-0793b44545a2'), since: 'Summer 2026', paddles: 6,
   },
   {
     id: 'priya', name: 'Priya', last: 'Raman', role: 'Founder, brand studio',
-    bio: 'Helping small companies sound like themselves. Bad at sitting still.',
+    bio: 'Helping small Kits companies sound like themselves. Bad at sitting still.',
     photo: face('1770920069344-2047a8354621'), since: 'Summer 2025', paddles: 12,
   },
   {
     id: 'alex', name: 'Alex', last: 'Moreau', role: 'Founding engineer',
-    bio: 'First engineer at a seed-stage startup. Fixes old bikes for fun.',
-    photo: face('1757744705465-ea08b0ddc38a'), since: 'Summer 2026', paddles: 4,
+    bio: 'First engineer at a seed-stage startup on West 4th. Fixes old bikes for fun.',
+    photo: face('1522529599102-193c0d76b5b6'), since: 'Summer 2026', paddles: 4,
   },
   {
-    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Co-founder, architecture practice',
-    bio: 'Started a small practice last year. Still sketches everything by hand first.',
-    photo: face('1438761681033-6461ffad8d80'), since: 'Summer 2026', paddles: 5,
+    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Co-founder, architecture studio',
+    bio: 'Runs a small practice above a bike shop on West Broadway. Still sketches everything by hand.',
+    photo: face('1765828593108-486f4c75ad43'), since: 'Summer 2026', paddles: 5,
   },
   {
     id: 'tomas', name: 'Tomás', last: 'Rivera', role: 'Founder, restaurant',
-    bio: 'Opening a small restaurant on Main next spring. Feeds people after paddles.',
-    photo: face('1527980965255-d3b416303d12'), since: 'Summer 2025', paddles: 10,
+    bio: 'Opening a small restaurant on West 4th next spring. Feeds people after paddles.',
+    photo: face('1591346956484-a30108152a87'), since: 'Summer 2025', paddles: 10,
   },
   {
     id: 'hana', name: 'Hana', last: 'Sato', role: 'Founder, research software',
-    bio: 'Building tools for user researchers. Throws pots on weekends.',
-    photo: face('1544005313-94ddf0286df2'), since: 'Summer 2026', paddles: 3,
+    bio: 'Building tools for user researchers from a café on Yew Street. Throws pots on weekends.',
+    photo: face('1762344352930-1e459b3e8c88'), since: 'Summer 2026', paddles: 3,
   },
   {
     id: 'daniel', name: 'Daniel', last: 'Park', role: 'Founder, health tech',
-    bio: 'Left the ER to build scheduling tools for night-shift nurses. Early swims keep me sane.',
-    photo: face('1762708551725-adf8e867e659'), since: 'Summer 2026', paddles: 7,
+    bio: 'Left the ER to build scheduling tools for night-shift nurses. Early swims at Kits Pool keep me sane.',
+    photo: face('1492562080023-ab3db95bfbce'), since: 'Summer 2026', paddles: 7,
   },
   {
     id: 'noor', name: 'Noor', last: 'Haddad', role: 'Founder, media',
-    bio: 'Running a small newsletter company. Very open to snack recommendations.',
-    photo: face('1534528741775-53994a69daeb'), since: 'Summer 2025', paddles: 8,
+    bio: 'Runs a small newsletter company from her Kits apartment. Very open to snack recommendations.',
+    photo: face('1759873821395-c29de82a5b99'), since: 'Summer 2025', paddles: 8,
   },
   {
     id: 'will', name: 'Will', last: 'Thompson', role: 'Co-founder, heat pumps',
-    bio: 'Keeps a heat-pump company running. Learning to be off on weekends.',
-    photo: face('1472099645785-5658abf4ff4e'), since: 'Summer 2026', paddles: 2,
+    bio: 'Running a heat-pump company out of a Kits garage. Learning to be off on weekends.',
+    photo: face('1527980965255-d3b416303d12'), since: 'Summer 2026', paddles: 2,
   },
 ];
 
@@ -236,7 +237,7 @@ export const POSTS = [
     id: 'p2', author: 'noor', kind: 'recs', when: '2 hr ago',
     text: 'Anyone have a good spot for food around Kits after a paddle? Somewhere you can show up a bit salty.',
     with: ['tomas'],
-    reply: 'Tomás: come by the Fourth Ave place. Patio, no dress code, very salty-friendly.',
+    reply: 'Tomás: come by the West 4th spot. Patio, no dress code, very salty-friendly.',
   },
   {
     id: 'p3', author: 'ethan', kind: 'building', when: '5 hr ago',
@@ -266,7 +267,7 @@ export const POSTS = [
   },
   {
     id: 'p8', author: 'priya', kind: 'building', when: '4 days ago',
-    text: "Running a small, free workshop on naming things for anyone starting a company. Saturday morning at a café in Mount Pleasant. Not selling anything, promise.",
+    text: "Running a small, free workshop on naming things for anyone starting a company. Saturday morning at a café on West 4th. Not selling anything, promise.",
     with: ['will'],
   },
   {
