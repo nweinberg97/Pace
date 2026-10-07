@@ -13,7 +13,7 @@ Pace is a social wellness experience for ambitious people who want to slow down 
 - Landing page: https://nweinberg97.github.io/Pace/
 - Straight into the member experience: https://nweinberg97.github.io/Pace/#/join
 
-> First-time setup: in the repo go to **Settings → Pages**, set **Source** to *Deploy from a branch*, branch **main**, folder **/ (root)**, and save. The link above goes live a minute later.
+> First-time setup: in the repo go to **Settings → Pages** and set **Source** to **GitHub Actions**. The included workflow deploys on every push to `main`.
 
 ## What's in the prototype
 
