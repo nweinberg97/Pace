@@ -8,10 +8,10 @@ Pace is a social wellness experience for ambitious people who want to slow down 
 
 ## Live demo
 
-**[nweinberg97.github.io/pace](https://nweinberg97.github.io/pace/)**
+**[nweinberg97.github.io/Pace](https://nweinberg97.github.io/Pace/)**
 
-- Landing page: https://nweinberg97.github.io/pace/
-- Straight into the member experience: https://nweinberg97.github.io/pace/#/join
+- Landing page: https://nweinberg97.github.io/Pace/
+- Straight into the member experience: https://nweinberg97.github.io/Pace/#/join
 
 > First-time setup: in the repo go to **Settings → Pages**, set **Source** to *Deploy from a branch*, branch **main**, folder **/ (root)**, and save. The link above goes live a minute later.
 
