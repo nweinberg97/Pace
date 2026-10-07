@@ -34,18 +34,18 @@ export const MEMBERS = [
     photo: face('1511200088071-be841f02c32e'), since: 'Summer 2025', paddles: 11,
   },
   {
-    id: 'sarah', name: 'Sarah', last: 'Okafor', role: 'Solo founder',
-    bio: 'Usually somewhere between Kits Beach and a spreadsheet.',
-    photo: face('1624486217002-846e654ac969'), since: 'Summer 2025', paddles: 9,
+    id: 'sarah', name: 'Sarah', last: 'Okafor', role: 'Solo founder, B2B software',
+    bio: 'Building billing software for small agencies. Usually somewhere between Kits Beach and a spreadsheet.',
+    photo: face('1544507888-56d73eb6046e'), since: 'Summer 2025', paddles: 9,
   },
   {
-    id: 'jonah', name: 'Jonah', last: 'Levi', role: 'Co-founder, climate hardware',
-    bio: 'Building batteries in a garage off Macdonald. Keeps a standing Thursday on the water.',
+    id: 'jonah', name: 'Jonah', last: 'Levi', role: 'Co-founder, climate tech',
+    bio: 'Building battery-monitoring software in a garage off Macdonald. Keeps a standing Thursday on the water.',
     photo: face('1532032877540-0793b44545a2'), since: 'Summer 2026', paddles: 6,
   },
   {
-    id: 'priya', name: 'Priya', last: 'Raman', role: 'Founder, brand studio',
-    bio: 'Helping small Kits companies sound like themselves. Bad at sitting still.',
+    id: 'priya', name: 'Priya', last: 'Raman', role: 'Founder, developer tools',
+    bio: 'Building developer tools for tiny teams from a desk on West 4th. Bad at sitting still.',
     photo: face('1770920069344-2047a8354621'), since: 'Summer 2025', paddles: 12,
   },
   {
@@ -54,13 +54,13 @@ export const MEMBERS = [
     photo: face('1522529599102-193c0d76b5b6'), since: 'Summer 2026', paddles: 4,
   },
   {
-    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Co-founder, architecture studio',
-    bio: 'Runs a small practice above a bike shop on West Broadway. Still sketches everything by hand.',
+    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Co-founder, proptech',
+    bio: 'Building software for small landlords from an office above a bike shop on West Broadway.',
     photo: face('1765828593108-486f4c75ad43'), since: 'Summer 2026', paddles: 5,
   },
   {
-    id: 'tomas', name: 'Tomás', last: 'Rivera', role: 'Founder, restaurant',
-    bio: 'Opening a small restaurant on West 4th next spring. Feeds people after paddles.',
+    id: 'tomas', name: 'Tomás', last: 'Rivera', role: 'Founder, logistics software',
+    bio: 'Building routing software for local delivery fleets from a West 4th co-working space. Brings snacks to every paddle.',
     photo: face('1591346956484-a30108152a87'), since: 'Summer 2025', paddles: 10,
   },
   {
@@ -74,13 +74,13 @@ export const MEMBERS = [
     photo: face('1492562080023-ab3db95bfbce'), since: 'Summer 2026', paddles: 7,
   },
   {
-    id: 'noor', name: 'Noor', last: 'Haddad', role: 'Founder, media',
-    bio: 'Runs a small newsletter company from her Kits apartment. Very open to snack recommendations.',
+    id: 'noor', name: 'Noor', last: 'Haddad', role: 'Founder, creator tools',
+    bio: 'Building an app that helps newsletter writers get paid. Works from her Kits apartment.',
     photo: face('1759873821395-c29de82a5b99'), since: 'Summer 2025', paddles: 8,
   },
   {
-    id: 'will', name: 'Will', last: 'Thompson', role: 'Co-founder, heat pumps',
-    bio: 'Running a heat-pump company out of a Kits garage. Learning to be off on weekends.',
+    id: 'will', name: 'Will', last: 'Thompson', role: 'Co-founder, energy software',
+    bio: 'Building software that helps homeowners switch to heat pumps, out of a Kits garage. Learning to be off on weekends.',
     photo: face('1527980965255-d3b416303d12'), since: 'Summer 2026', paddles: 2,
   },
 ];
@@ -237,7 +237,7 @@ export const POSTS = [
     id: 'p2', author: 'noor', kind: 'recs', when: '2 hr ago',
     text: 'Anyone have a good spot for food around Kits after a paddle? Somewhere you can show up a bit salty.',
     with: ['tomas'],
-    reply: 'Tomás: come by the West 4th spot. Patio, no dress code, very salty-friendly.',
+    reply: 'Tomás: the taco place on West 4th. Patio, no dress code, very salty-friendly.',
   },
   {
     id: 'p3', author: 'ethan', kind: 'building', when: '5 hr ago',
@@ -256,7 +256,7 @@ export const POSTS = [
   },
   {
     id: 'p6', author: 'tomas', kind: 'giving', when: '2 days ago',
-    text: "Testing a new summer menu and I need honest eaters. Six seats, Wednesday at 7. First come.",
+    text: "Looking for six founders to try a beta of our new app and tell me what’s broken. Wednesday at 7 at the West 4th office, pizza on me.",
     with: ['noor', 'will', 'jonah'],
   },
   {

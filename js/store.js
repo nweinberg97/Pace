@@ -1,11 +1,11 @@
 // Prototype state, persisted to localStorage so the demo survives refreshes.
 
-const KEY = 'pace.prototype.v2';
+const KEY = 'pace.prototype.v3';
 
 // The demo opens as a member who has already signed up, so visitors can go
 // straight to the product instead of filling in a profile.
 export const SAMPLE_MEMBER = {
-  name: 'Nitai',
+  name: 'Mark',
   bio: 'Building products, experimenting with ideas, trying to spend more time outside.',
   photo: '',
   role: 'Founder',

@@ -226,7 +226,7 @@ function landingView() {
       <div class="wrap">
         <div class="section-head">
           <h2>The activity is the front door.<br>The people are the reason you come back.</h2>
-          <p>Founders building in Kitsilano: software companies on West 4th, a restaurant opening next spring, design studios and garage hardware startups, plus the first few people who joined them. Some come to talk shop, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
+          <p>Tech founders building in Kitsilano: developer tools, fintech, climate and health startups, from West 4th co-working desks to Kits garages, plus the first few engineers who joined them. Some come to talk shop, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
         </div>
         <div class="people-row">
           ${featured.map((p) => `
