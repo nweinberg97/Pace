@@ -1,4 +1,4 @@
-// Pace — prototype data.
+// Pace prototype data.
 // Everything here is fictional. The demo is set on a summer Thursday in August.
 
 const U = (id, w = 1600) =>
@@ -17,68 +17,70 @@ export const IMAGES = {
   away: U('1639519126294-1b794052f1f6', 1200),
 };
 
-const face = (id) => U(id, 400);
+const face = (id) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=faces&w=600&h=750&q=80`;
 
+// Everyone here is a founder or one of the first people on a founding team.
 export const MEMBERS = [
   {
-    id: 'maya', name: 'Maya', last: 'Chen', role: 'Product Designer',
+    id: 'maya', name: 'Maya', last: 'Chen', role: 'Founder, design tools',
     bio: 'Building tools that make work feel a little more human.',
-    photo: face('1494790108377-be9c29b29330'), since: 'Summer 2025', paddles: 14,
+    photo: face('1765828593108-486f4c75ad43'), since: 'Summer 2025', paddles: 14,
   },
   {
-    id: 'ethan', name: 'Ethan', last: 'Brooks', role: 'Founder',
+    id: 'ethan', name: 'Ethan', last: 'Brooks', role: 'Founder, fintech',
     bio: 'Currently figuring out how to build a company without living inside it.',
-    photo: face('1500648767791-00dcc994a43e'), since: 'Summer 2025', paddles: 11,
+    photo: face('1522529599102-193c0d76b5b6'), since: 'Summer 2025', paddles: 11,
   },
   {
-    id: 'sarah', name: 'Sarah', last: 'Okafor', role: 'Independent Consultant',
+    id: 'sarah', name: 'Sarah', last: 'Okafor', role: 'Solo founder',
     bio: 'Usually somewhere between a trail and a spreadsheet.',
-    photo: face('1531123897727-8f129e1688ce'), since: 'Summer 2025', paddles: 9,
+    photo: face('1762344352930-1e459b3e8c88'), since: 'Summer 2025', paddles: 9,
   },
   {
-    id: 'jonah', name: 'Jonah', last: 'Levi', role: 'Founder',
-    bio: 'Two kids, one tiny company, and a standing Thursday on the water.',
-    photo: face('1507003211169-0a1dd7228f2d'), since: 'Summer 2026', paddles: 6,
+    id: 'jonah', name: 'Jonah', last: 'Levi', role: 'Co-founder, climate hardware',
+    bio: 'One tiny company, one very patient partner, and a standing Thursday on the water.',
+    photo: face('1532032877540-0793b44545a2'), since: 'Summer 2026', paddles: 6,
   },
   {
-    id: 'priya', name: 'Priya', last: 'Raman', role: 'Brand Strategist',
+    id: 'priya', name: 'Priya', last: 'Raman', role: 'Founder, brand studio',
     bio: 'Helping small companies sound like themselves. Bad at sitting still.',
-    photo: face('1580489944761-15a19d654956'), since: 'Summer 2025', paddles: 12,
+    photo: face('1770920069344-2047a8354621'), since: 'Summer 2025', paddles: 12,
   },
   {
-    id: 'alex', name: 'Alex', last: 'Moreau', role: 'Software Engineer',
-    bio: 'Writes code for a living, fixes old bikes for fun.',
-    photo: face('1506794778202-cad84cf45f1d'), since: 'Summer 2026', paddles: 4,
+    id: 'alex', name: 'Alex', last: 'Moreau', role: 'Founding engineer',
+    bio: 'First engineer at a seed-stage startup. Fixes old bikes for fun.',
+    photo: face('1757744705465-ea08b0ddc38a'), since: 'Summer 2026', paddles: 4,
   },
   {
-    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Architect',
-    bio: 'Designing a library in Burnaby. Still sketches everything by hand first.',
+    id: 'lena', name: 'Lena', last: 'Fischer', role: 'Co-founder, architecture practice',
+    bio: 'Started a small practice last year. Still sketches everything by hand first.',
     photo: face('1438761681033-6461ffad8d80'), since: 'Summer 2026', paddles: 5,
   },
   {
-    id: 'tomas', name: 'Tomás', last: 'Rivera', role: 'Chef',
+    id: 'tomas', name: 'Tomás', last: 'Rivera', role: 'Founder, restaurant',
     bio: 'Opening a small restaurant on Main next spring. Feeds people after paddles.',
-    photo: face('1519085360753-af0119f7cbe7'), since: 'Summer 2025', paddles: 10,
+    photo: face('1527980965255-d3b416303d12'), since: 'Summer 2025', paddles: 10,
   },
   {
-    id: 'hana', name: 'Hana', last: 'Sato', role: 'UX Researcher',
-    bio: 'Asks people questions for a living. Throws pots on weekends.',
+    id: 'hana', name: 'Hana', last: 'Sato', role: 'Founder, research software',
+    bio: 'Building tools for user researchers. Throws pots on weekends.',
     photo: face('1544005313-94ddf0286df2'), since: 'Summer 2026', paddles: 3,
   },
   {
-    id: 'daniel', name: 'Daniel', last: 'Park', role: 'ER Nurse',
-    bio: 'Night shifts, early swims. The water is the quietest part of my week.',
-    photo: face('1472099645785-5658abf4ff4e'), since: 'Summer 2026', paddles: 7,
+    id: 'daniel', name: 'Daniel', last: 'Park', role: 'Founder, health tech',
+    bio: 'Left the ER to build scheduling tools for night-shift nurses. Early swims keep me sane.',
+    photo: face('1762708551725-adf8e867e659'), since: 'Summer 2026', paddles: 7,
   },
   {
-    id: 'noor', name: 'Noor', last: 'Haddad', role: 'Writer',
-    bio: 'Finishing a first novel, slowly. Very open to snack recommendations.',
+    id: 'noor', name: 'Noor', last: 'Haddad', role: 'Founder, media',
+    bio: 'Running a small newsletter company. Very open to snack recommendations.',
     photo: face('1534528741775-53994a69daeb'), since: 'Summer 2025', paddles: 8,
   },
   {
-    id: 'will', name: 'Will', last: 'Thompson', role: 'Operations, climate startup',
+    id: 'will', name: 'Will', last: 'Thompson', role: 'Co-founder, heat pumps',
     bio: 'Keeps a heat-pump company running. Learning to be off on weekends.',
-    photo: face('1539571696357-5a69c17a67c6'), since: 'Summer 2026', paddles: 2,
+    photo: face('1472099645785-5658abf4ff4e'), since: 'Summer 2026', paddles: 2,
   },
 ];
 
@@ -185,21 +187,21 @@ export const ANNOUNCEMENTS = [
     when: 'Today, 2:10 PM', unread: true,
   },
   {
-    id: 'a2', from: 'jericho', kind: 'Small change', session: 'tue-aug-11', important: true,
+    id: 'a2', from: 'pace', kind: 'Small change', session: 'tue-aug-11', important: true,
     title: 'Small change for Tuesday',
-    body: "Tuesday's paddle will start 15 minutes later due to conditions. Wind is expected to ease by 6:30, so we'll launch at 6:45 PM.",
+    body: "Tuesday's paddle will start 15 minutes later due to conditions. Wind is expected to ease by 6:30, so we'll launch at 6:45 PM. We've moved our board booking with Jericho SUP to match.",
     when: 'Today, 11:40 AM', unread: true,
   },
   {
     id: 'a3', from: 'pace', kind: 'Reminder',
     title: 'What to bring',
-    body: 'Swimsuit, towel, water, sunscreen, and whatever you want to throw on afterward. Boards, paddles and PFDs are on Jericho SUP.',
+    body: 'Swimsuit, towel, water, sunscreen, and whatever you want to throw on afterward. Boards, paddles and PFDs are rented from Jericho SUP and booked by us.',
     when: 'Tuesday',
   },
   {
     id: 'a4', from: 'pace', kind: 'Community',
     title: 'Welcome to the summer',
-    body: 'A few new members joined this week. Say hi when you see them on the water. Hana, Will and Alex — glad you are here.',
+    body: 'A few new founders joined this week. Say hi when you see them on the water. Hana, Will and Alex, glad you’re here.',
     when: 'Monday',
   },
   {
@@ -209,9 +211,9 @@ export const ANNOUNCEMENTS = [
     when: 'Last week',
   },
   {
-    id: 'a6', from: 'jericho', kind: 'Safety',
-    title: 'From the Jericho SUP crew',
-    body: "Quick refresher on the beach before Thursday's paddle for anyone new. Takes five minutes. Everyone gets a leash and a PFD.",
+    id: 'a6', from: 'pace', kind: 'Rentals',
+    title: 'How boards work',
+    body: "We book boards for the group through Jericho SUP's rental desk, so you don't need to reserve anything yourself. Their staff run a short safety briefing for anyone new. Everyone gets a leash and a PFD.",
     when: 'Last week',
   },
 ];
@@ -238,12 +240,12 @@ export const POSTS = [
   },
   {
     id: 'p3', author: 'ethan', kind: 'building', when: '5 hr ago',
-    text: "I'm looking for someone who knows a lot about early-stage hiring. Would love a recommendation — or a coffee.",
+    text: "I'm looking for someone who knows a lot about early-stage hiring. Would love a recommendation, or a coffee.",
     with: ['sarah'],
   },
   {
     id: 'p4', author: 'sarah', kind: 'giving', when: 'Yesterday',
-    text: 'I have two extra tickets for the Bard on the Beach show on Saturday if anyone wants them.',
+    text: 'I have two extra tickets for Bard on the Beach on Saturday if anyone wants them. Shipped a big release this week and I’m taking the night off.',
     with: [],
   },
   {
@@ -264,7 +266,7 @@ export const POSTS = [
   },
   {
     id: 'p8', author: 'priya', kind: 'building', when: '4 days ago',
-    text: "Running a small, free workshop on naming things for anyone starting a project. Saturday morning at a café in Mount Pleasant. Not selling anything, promise.",
+    text: "Running a small, free workshop on naming things for anyone starting a company. Saturday morning at a café in Mount Pleasant. Not selling anything, promise.",
     with: ['will'],
   },
   {
@@ -282,7 +284,7 @@ export const POSTS = [
 export const RITUAL = [
   { time: '6:15', title: 'Meet', text: 'Find the group at Jericho SUP. Grab a board, a paddle, and whoever is standing nearby.' },
   { time: '6:30', title: 'Paddle', text: 'Out past the moorings together. Fast or slow, nobody is keeping score.' },
-  { time: '7:15', title: 'Drift', text: 'The group loosens. Paddle alone for a while, or pair up and talk. Sit down. Swim.' },
+  { time: '7:15', title: 'Drift', text: 'The group loosens. Paddle alone for a while, or pair up and talk about what you’re building. Sit down. Swim.' },
   { time: '8:15', title: 'Regroup', text: 'Someone raises a shaka. It means come back together. Watch the sun go down from the water.' },
   { time: '8:50', title: 'Stay a little longer', text: "Boards back, towels out. Food is optional. Staying usually isn't." },
 ];

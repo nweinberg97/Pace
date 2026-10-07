@@ -1,5 +1,5 @@
 /* =====================================================================
-   Pace — styles
+   Pace styles
    Palette pulled from a Vancouver dusk: violet sky, rose haze, ember
    horizon, slate water. Type is one family (Archivo) used at two widths:
    expanded for the voice of the brand, normal for reading.
@@ -129,6 +129,7 @@ ol, ul { padding: 0; list-style: none; }
 .text-link.back:hover { color: var(--ink); }
 
 .link-btn {
+  text-decoration: none;
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 14px; font-weight: 560; color: var(--ink-2);
   padding: 6px 12px; border-radius: 999px;
@@ -162,7 +163,7 @@ ol, ul { padding: 0; list-style: none; }
   color: #fff;
   overflow: hidden;
   isolation: isolate;
-  /* The colour field the photo sits on — also the fallback. */
+  /* The colour field the photo sits on, and the fallback if it fails. */
   background:
     linear-gradient(180deg, #6e5a8c 0%, #a17e9f 34%, #e7a493 56%, #8b6e8f 62%, #4b3e62 100%);
 }
@@ -884,7 +885,9 @@ body[data-view="app"] { background: var(--shell); }
 .profile { text-align: center; padding: 20px 0 30px; display: flex; flex-direction: column; align-items: center; }
 .profile-photo .avatar { box-shadow: 0 0 0 5px var(--paper), 0 14px 40px -12px rgba(43, 34, 64, .4); }
 .profile h1 { margin-top: 22px; font-stretch: var(--wide); font-weight: 600; font-size: 2.2rem; letter-spacing: -.02em; }
-.profile-bio { margin-top: 8px; max-width: 28em; color: var(--ink-2); font-size: 1.05rem; }
+.profile-bio { margin-top: 10px; max-width: 28em; color: var(--ink-2); font-size: 1.05rem; }
+.profile-role { margin-top: 4px; font-size: 14.5px; font-weight: 560; color: var(--ember-ink); }
+.partner-note { margin-top: 14px; }
 .profile-since { display: inline-flex; align-items: center; gap: 8px; margin: 14px 0 20px; font-size: 14px; color: var(--ink-3); }
 .profile-since .mark { color: var(--mauve); }
 .profile-facts { display: grid; grid-template-columns: 1fr 1.6fr; background: var(--paper); border-radius: var(--r-md); box-shadow: var(--shadow-soft); }

@@ -1,11 +1,22 @@
 // Prototype state, persisted to localStorage so the demo survives refreshes.
 
-const KEY = 'pace.prototype.v1';
+const KEY = 'pace.prototype.v2';
+
+// The demo opens as a member who has already signed up, so visitors can go
+// straight to the product instead of filling in a profile.
+export const SAMPLE_MEMBER = {
+  name: 'Nitai',
+  bio: 'Building products, experimenting with ideas, trying to spend more time outside.',
+  photo: '',
+  role: 'Founder',
+  since: 'Summer 2025',
+  paddles: 6,
+};
 
 const initial = () => ({
   waitlist: null, // email
-  user: null, // { name, bio, photo, provider, joined }
-  bookings: [], // session ids
+  user: { ...SAMPLE_MEMBER },
+  bookings: ['sun-aug-9'], // session ids; Sunday is already booked, tonight is open to try
   sessionWaitlists: [], // session ids where the member asked to be told about an opening
   posts: [], // member-authored community posts
   joined: {}, // postId -> true ("count me in" / "I can help")
@@ -19,7 +30,8 @@ function load() {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return initial();
-    return { ...initial(), ...JSON.parse(raw) };
+    const saved = JSON.parse(raw);
+    return { ...initial(), ...saved, user: saved.user || { ...SAMPLE_MEMBER } };
   } catch {
     return initial();
   }
@@ -46,10 +58,5 @@ export const subscribe = (fn) => listeners.add(fn);
 export function resetDemo() {
   const waitlist = state.waitlist;
   state = { ...initial(), waitlist };
-  save();
-}
-
-export function signOut() {
-  state = { ...state, user: null };
   save();
 }

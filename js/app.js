@@ -2,7 +2,7 @@ import {
   IMAGES, MEMBERS, SESSIONS, ANNOUNCEMENTS, POSTS, POST_KINDS, RITUAL,
   memberById, sessionById, DEMO_TODAY,
 } from './data.js';
-import { getState, setState, resetDemo, signOut } from './store.js';
+import { getState, setState, resetDemo } from './store.js';
 import { icon, mark, wordmark } from './icons.js';
 
 const root = document.getElementById('root');
@@ -18,7 +18,7 @@ const esc = (s = '') =>
 const me = () => {
   const u = getState().user;
   if (!u) return null;
-  return { id: 'me', name: u.name, last: '', role: 'You', bio: u.bio, photo: u.photo, since: 'Summer 2026', you: true };
+  return { id: 'me', name: u.name, last: '', role: u.role || 'Founder', bio: u.bio, photo: u.photo, since: u.since || 'Summer 2025', paddles: u.paddles || 0, you: true };
 };
 
 const person = (id) => (id === 'me' ? me() : memberById(id));
@@ -86,7 +86,7 @@ function route() {
   const h = location.hash || '';
   if (!h.startsWith('#/')) return { name: 'landing' };
   const parts = h.slice(2).split('/').filter(Boolean);
-  if (parts[0] === 'join') return { name: 'join' };
+  if (parts[0] === 'join') return { name: 'app', tab: 'sessions', redirect: true };
   if (parts[0] === 'app') {
     const tab = parts[1] || 'sessions';
     if (tab === 'sessions' && parts[2]) return { name: 'app', tab: 'session', id: parts[2] };
@@ -101,7 +101,6 @@ export const go = (hash) => {
 };
 
 let lastRouteKey = '';
-let joinStep = 1;
 let communityFilter = 'all';
 let composeKind = 'plans';
 
@@ -111,10 +110,9 @@ function render() {
   const routeChanged = key !== lastRouteKey;
   lastRouteKey = key;
 
-  // Member area requires a profile; send people through onboarding first.
-  if (r.name === 'app' && !getState().user) {
-    joinStep = 1;
-    location.replace('#/join');
+  // Old sign-up links land in the member view: the demo is already signed in.
+  if (r.redirect) {
+    location.replace('#/app/sessions');
     return;
   }
 
@@ -122,18 +120,11 @@ function render() {
 
   if (r.name === 'landing') {
     root.innerHTML = landingView();
-    document.title = 'Pace — Come spend a couple hours outside';
-  } else if (r.name === 'join') {
-    if (getState().user && joinStep !== 3) {
-      location.replace('#/app/sessions');
-      return;
-    }
-    root.innerHTML = joinView();
-    document.title = 'Join Pace';
+    document.title = 'Pace | A sunset paddle community for founders';
   } else {
     root.innerHTML = appView(r);
     const titles = { sessions: 'Sessions', session: 'Paddle', community: 'Community', announcements: 'Announcements', profile: 'Profile' };
-    document.title = `${titles[r.tab] || 'Pace'} — Pace`;
+    document.title = `${titles[r.tab] || 'Pace'} | Pace`;
     if (r.tab === 'announcements') markAnnouncementsRead();
   }
 
@@ -154,7 +145,7 @@ window.addEventListener('hashchange', render);
 /* ------------------------------------------------------------------ */
 
 function landingView() {
-  const memberCta = getState().user ? '#/app/sessions' : '#/join';
+  const memberCta = '#/app/sessions';
   const featured = ['maya', 'ethan', 'sarah', 'tomas'].map(memberById);
 
   return `
@@ -176,7 +167,7 @@ function landingView() {
       <div class="hero-inner">
         <div class="hero-mark">${mark({ size: 92, tone: '#fff' })}</div>
         <h1 class="hero-title">You work hard.<br>Come spend a couple hours outside.</h1>
-        <p class="hero-copy">Pace is a weekly sunset paddle at Jericho Beach for people who care a lot about what they’re building — and want a couple of hours away from it.</p>
+        <p class="hero-copy">Pace is a stand-up paddleboard community for founders in Vancouver. One sunset a week on the water with people who are building things too.</p>
         <div class="hero-actions">
           <button class="btn btn-light" data-scroll="waitlist">Join the Summer</button>
           <button class="btn btn-ghost-light" data-scroll="ritual">See how it works</button>
@@ -184,21 +175,21 @@ function landingView() {
       </div>
 
       <div class="hero-foot">
-        <span>Pace on the Water, with Jericho SUP</span>
-        <span>Thursdays and Sundays at sunset, all summer</span>
+        <span>A paddleboard community for founders</span>
+        <span>Thursdays and Sundays at sunset, Jericho Beach</span>
       </div>
     </section>
 
     <section class="philosophy" id="philosophy">
       <div class="wrap philosophy-grid">
-        <h2 class="statement">Pace is for people who care deeply about what they’re building — and don’t want that to become their entire life.</h2>
+        <h2 class="statement">Pace is for founders who care deeply about what they’re building, and don’t want it to become their entire life.</h2>
         <div class="philosophy-side">
           <ol class="cadence" aria-label="The Pace rhythm">
             <li><span>Work hard.</span></li>
             <li><span>Step away.</span></li>
             <li><span>Come back better.</span></li>
           </ol>
-          <p>Rest isn’t the opposite of ambition. You don’t need another productivity system, or another networking event. You need a reason to step outside, and a few good people to step outside with.</p>
+          <p>Rest isn’t the opposite of ambition. You don’t need another productivity system, or another founder meetup. You need a reason to step outside, and a few people who get it to step outside with.</p>
           <p class="quiet">Pace means rhythm, not speed.</p>
         </div>
       </div>
@@ -208,7 +199,7 @@ function landingView() {
       <div class="wrap">
         <div class="section-head on-dark">
           <h2>What a Thursday evening looks like.</h2>
-          <p>Two and a half hours, loosely held. People drift between solitude and conversation on their own terms. Nobody runs an icebreaker. The water does the social work.</p>
+          <p>Two and a half hours, loosely held. Founders drift between solitude and conversation on their own terms. Nobody runs an icebreaker and nobody pitches. The water does the social work.</p>
         </div>
 
         <ol class="sunpath" aria-label="A Pace evening, in order">
@@ -235,7 +226,7 @@ function landingView() {
       <div class="wrap">
         <div class="section-head">
           <h2>The activity is the front door.<br>The people are the reason you come back.</h2>
-          <p>Designers, nurses, founders, chefs, engineers, writers. Some come to talk, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
+          <p>Founders of software companies, restaurants, studios and hardware startups, plus the first few people who joined them. Some come to talk shop, some come to be quiet. Nobody brings a pitch deck onto the water.</p>
         </div>
         <div class="people-row">
           ${featured.map((p) => `
@@ -279,24 +270,25 @@ function landingView() {
             <li>${icon.bag(20)}<span>Bring a swimsuit or comfortable clothes</span></li>
             <li>${icon.clock(20)}<span>Arrive a little early</span></li>
             <li>${icon.board(20)}<span>No paddleboarding experience required</span></li>
-            <li>${icon.wave(20)}<span>Boards and gear provided by Jericho SUP</span></li>
+            <li>${icon.wave(20)}<span>Boards and gear are rented for you</span></li>
             <li>${icon.cloud(20)}<span>Sessions are weather dependent</span></li>
             <li>${icon.people(20)}<span>Come for the water. Stay for the people.</span></li>
           </ul>
         </div>
         <div class="partner">
-          <h2 class="h-small">Built with Jericho SUP</h2>
-          <p>Pace sits on top of a paddleboard operation that already knows the water. They run the beach. We bring the people together.</p>
+          <h2 class="h-small">Where we paddle</h2>
+          <p>Sessions launch from Jericho SUP at Jericho Beach. Pace books boards for the group through their rental desk, the same way any group would.</p>
           <div class="partner-split">
             <div>
-              <h3>Jericho SUP</h3>
-              <ul><li>Boards, paddles and PFDs</li><li>Water access and safety</li><li>A quick lesson if you’re new</li></ul>
+              <h3>Rented from Jericho SUP</h3>
+              <ul><li>Boards, paddles and PFDs</li><li>Their usual safety briefing</li><li>A lesson, if you book one with them</li></ul>
             </div>
             <div>
-              <h3>Pace</h3>
-              <ul><li>The group and the regular time</li><li>Who’s coming</li><li>Updates when the weather turns</li><li>The part after</li></ul>
+              <h3>Run by Pace</h3>
+              <ul><li>The group and the regular time</li><li>Booking boards for everyone</li><li>Who’s coming</li><li>Updates when the weather turns</li><li>The part after</li></ul>
             </div>
           </div>
+          <p class="fine partner-note">Jericho SUP is where we rent boards. They aren’t a partner of Pace and haven’t endorsed it.</p>
         </div>
       </div>
     </section>
@@ -310,7 +302,7 @@ function landingView() {
         <div class="family-grid">
           ${[
             { k: 'drift', name: 'Pace on the Water', text: 'Paddleboarding, sunlight, solitude, conversation.', when: 'This summer' },
-            { k: 'studio', name: 'Pace in the Studio', text: 'Restore — a class for mobility, breath and decompression.', when: 'Later' },
+            { k: 'studio', name: 'Pace in the Studio', text: 'Restore: a class for mobility, breath and decompression.', when: 'Later' },
             { k: 'heat', name: 'Pace in the Heat', text: 'Sauna, cold plunge, stillness, and slow talk.', when: 'Later' },
             { k: 'away', name: 'Pace Away', text: 'Whistler weekends, surf trips, long hikes.', when: 'Someday' },
           ].map((f, i) => `
@@ -338,7 +330,7 @@ function landingView() {
           <button data-scroll="waitlist">Join the Summer</button>
           <span>Vancouver, BC</span>
         </div>
-        <p class="foot-fine">A prototype. Members, sessions and announcements are fictional. Photography from Unsplash.</p>
+        <p class="foot-fine">A prototype. Members, sessions and announcements are fictional. Pace is independent and not affiliated with Jericho SUP. Photography from Unsplash.</p>
       </div>
     </footer>
   </div>`;
@@ -353,14 +345,14 @@ function waitlistBody() {
         <h2>You’re on the list.</h2>
         <p>We’ll send the first details to <strong>${esc(email)}</strong> when summer sessions open.</p>
         <div class="waitlist-next">
-          <a class="btn btn-light" href="${getState().user ? '#/app/sessions' : '#/join'}">See Pace as a member</a>
+          <a class="btn btn-light" href="#/app/sessions">See Pace as a member</a>
           <button class="btn btn-ghost-light" data-action="waitlist-undo">Use a different email</button>
         </div>
       </div>`;
   }
   return `
     <h2>Come find your pace this summer.</h2>
-    <p>Join the waitlist and we’ll send the first sessions when they open. One email, maybe two. No newsletter.</p>
+    <p>Pace is for founders and early teams in Vancouver. Join the waitlist and we’ll send the first sessions when they open. One email, maybe two.</p>
     <form class="waitlist-form" data-form="waitlist" novalidate>
       <label class="sr-only" for="wl-email">Email address</label>
       <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Email address" required>
@@ -369,102 +361,7 @@ function waitlistBody() {
     <p class="form-error" id="wl-error" role="alert"></p>`;
 }
 
-/* ------------------------------------------------------------------ */
-/* Onboarding                                                          */
-/* ------------------------------------------------------------------ */
-
-let draft = { name: '', bio: '', photo: '', provider: '' };
-
-function joinView() {
-  const steps = ['Sign in', 'Profile', 'Welcome'];
-  const progress = `
-    <ol class="steps" aria-label="Sign-up progress">
-      ${steps.map((s, i) => `<li class="${i + 1 === joinStep ? 'is-current' : ''} ${i + 1 < joinStep ? 'is-done' : ''}"><span>${i + 1}</span>${s}</li>`).join('')}
-    </ol>`;
-
-  if (joinStep === 3) {
-    const u = getState().user;
-    return `
-    <div class="welcome">
-      ${img('stillWater', 'welcome-img', '')}
-      <div class="welcome-shade"></div>
-      <div class="welcome-inner">
-        <div class="welcome-mark">${mark({ size: 80, tone: '#fff' })}</div>
-        <h1>Welcome to Pace${u ? `, ${esc(u.name)}` : ''}.</h1>
-        <p>Your next couple of hours are already looking better.</p>
-        <button class="btn btn-light btn-lg" data-action="enter-app">Find your next paddle</button>
-      </div>
-    </div>`;
-  }
-
-  const side = `
-    <aside class="join-side">
-      ${img('fog', 'join-img', '')}
-      <div class="join-side-shade"></div>
-      <a href="#/" class="join-logo" aria-label="Back to Pace">${wordmark({ size: 24, tone: '#fff' })}</a>
-      <blockquote>“Sat on my board for twenty minutes and didn’t think about work once.”<cite>Maya, member since 2025</cite></blockquote>
-    </aside>`;
-
-  if (joinStep === 1) {
-    return `
-    <div class="join">
-      ${side}
-      <main class="join-main">
-        <div class="join-card">
-          ${progress}
-          <h1>Join the summer.</h1>
-          <p class="join-lede">Pick how you’d like to sign in. We only use it to make your profile — no posting, no contacts.</p>
-          <div class="providers">
-            <button class="provider" data-action="provider" data-provider="Google">${icon.google()}<span>Continue with Google</span></button>
-            <button class="provider" data-action="provider" data-provider="Apple">${icon.apple()}<span>Continue with Apple</span></button>
-            <button class="provider" data-action="provider" data-provider="LinkedIn">${icon.linkedin()}<span>Continue with LinkedIn</span></button>
-          </div>
-          <p class="fine">This is a prototype. Sign-in is simulated and nothing leaves your browser.</p>
-          <a class="text-link back" href="#/">${icon.arrowLeft(16)} Back to the site</a>
-        </div>
-      </main>
-    </div>`;
-  }
-
-  // Step 2: profile
-  const initial = esc((draft.name || '').charAt(0).toUpperCase());
-  return `
-    <div class="join">
-      ${side}
-      <main class="join-main">
-        <form class="join-card" data-form="profile" novalidate>
-          ${progress}
-          <h1>Create your Pace profile.</h1>
-          <p class="join-lede">Three things. People see this when you book a paddle, so they know who to say hi to.</p>
-
-          <div class="photo-field">
-            <label class="photo-pick" for="photo-input">
-              <span class="photo-preview" id="photo-preview">${draft.photo ? `<img src="${draft.photo}" alt="Your photo">` : `<span class="photo-initial">${initial || icon.camera(26)}</span>`}</span>
-              <span class="photo-text"><strong>${draft.photo ? 'Change photo' : 'Add a photo'}</strong><span>A face helps people find you on the beach.</span></span>
-            </label>
-            <input id="photo-input" type="file" accept="image/*" class="sr-only" data-input="photo">
-          </div>
-
-          <div class="field">
-            <label for="f-name">First name</label>
-            <input id="f-name" name="name" autocomplete="given-name" maxlength="24" value="${esc(draft.name)}" data-input="name" placeholder="Your first name">
-          </div>
-
-          <div class="field">
-            <label for="f-bio">What are you working on lately?</label>
-            <input id="f-bio" name="bio" maxlength="90" value="${esc(draft.bio)}" data-input="bio" placeholder="Building a small studio. Learning to take weekends.">
-            <span class="field-hint"><span>One line is plenty.</span><span id="bio-count">${draft.bio.length}/90</span></span>
-          </div>
-
-          <p class="form-error" id="profile-error" role="alert"></p>
-          <div class="join-actions">
-            <button type="button" class="btn btn-quiet" data-action="join-back">${icon.arrowLeft(16)} Back</button>
-            <button type="submit" class="btn btn-dark">Continue</button>
-          </div>
-        </form>
-      </main>
-    </div>`;
-}
+let draft = { name: '', bio: '', photo: '' };
 
 /* ------------------------------------------------------------------ */
 /* Member app                                                          */
@@ -519,7 +416,7 @@ function appView(r) {
     </header>
     <main class="app-main" id="main">${body}</main>
     <nav class="tabbar" aria-label="Member">${navItems}</nav>
-    <div class="demo-pill" title="Prototype">Demo evening: ${DEMO_TODAY}</div>
+    <div class="demo-pill" title="Prototype">Sample member view, ${DEMO_TODAY}</div>
   </div>`;
 }
 
@@ -545,7 +442,7 @@ function bookButton(s, size = '') {
 function spotsLabel(s) {
   if (isFull(s)) return 'Full';
   const left = spotsLeft(s);
-  return `${taken(s)} / ${s.capacity} spots${left <= 2 && !isBooked(s.id) ? ` — ${left} left` : ''}`;
+  return `${taken(s)} / ${s.capacity} spots${left <= 2 && !isBooked(s.id) ? `, ${left} left` : ''}`;
 }
 
 function sessionsView() {
@@ -605,7 +502,7 @@ function sessionsView() {
       <ul class="session-list">
         ${rest.map(sessionRow).join('')}
       </ul>
-      <p class="fine center">Sessions open two weeks ahead. Boards and gear are on Jericho SUP.</p>
+      <p class="fine center">Sessions open two weeks ahead. Pace books boards for the group at Jericho SUP.</p>
     </section>
   </div>`;
 }
@@ -721,10 +618,10 @@ function sessionDetailView(id) {
         <section class="plan">
           <h2 class="h-section">The plan</h2>
           <ol class="plan-list">
-            <li><span>${s.meet}</span><p>Meet at Jericho SUP. Grab a board, paddle and PFD.</p></li>
+            <li><span>${s.meet}</span><p>Meet at Jericho SUP. Your board is already booked under Pace.</p></li>
             <li><span>${s.time}</span><p>On the water together.</p></li>
             <li><span>Then</span><p>Drift. Paddle alone, pair up, sit, swim. Your call.</p></li>
-            <li><span>${icon.shaka(18)}</span><p>Someone raises a shaka — come back together for the sunset at ${w.sunset}.</p></li>
+            <li><span>${icon.shaka(18)}</span><p>Someone raises a shaka. Come back together for the sunset at ${w.sunset}.</p></li>
             <li><span>${s.end}</span><p>Boards back. Stay a little longer if you like.</p></li>
           </ol>
         </section>
@@ -752,8 +649,8 @@ function sessionDetailView(id) {
         </div>
 
         <div class="side-card partner-card">
-          <h2 class="h-mini">On Jericho SUP</h2>
-          <p>Boards, paddles, PFDs, leashes and a five-minute beach briefing for anyone new. Just show up.</p>
+          <h2 class="h-mini">Boards and gear</h2>
+          <p>Pace books boards, paddles and PFDs for the group at Jericho SUP’s rental desk. Their staff give a short safety briefing to anyone new. Just show up.</p>
         </div>
 
         ${ann ? `
@@ -761,7 +658,7 @@ function sessionDetailView(id) {
           <h2 class="h-mini">Latest update</h2>
           <strong>${ann.title}</strong>
           <p>${ann.body}</p>
-          <small>${ann.from === 'jericho' ? 'Jericho SUP crew' : 'Pace'}, ${ann.when}</small>
+          <small>Pace, ${ann.when}</small>
         </a>` : ''}
       </aside>
     </div>
@@ -788,7 +685,7 @@ function announcementsView() {
   <div class="page page-narrow">
     <header class="page-head">
       <h1>Announcements</h1>
-      <p class="page-sub">Practical updates from Pace and the Jericho SUP crew. Nothing to reply to.</p>
+      <p class="page-sub">Practical updates from the Pace team. Nothing to reply to.</p>
     </header>
     <ol class="ann-list">
       ${ANNOUNCEMENTS.map((a) => {
@@ -797,9 +694,7 @@ function announcementsView() {
         return `
         <li class="ann ${a.important ? 'ann-important' : ''}">
           <div class="ann-from">
-            ${a.from === 'jericho'
-              ? '<span class="from-badge from-jsup" aria-hidden="true">J</span><span>Jericho SUP crew</span>'
-              : `<span class="from-badge" aria-hidden="true">${mark({ size: 14, tone: '#fff' })}</span><span>Pace</span>`}
+            <span class="from-badge" aria-hidden="true">${mark({ size: 14, tone: '#fff' })}</span><span>Pace</span>
             <span class="ann-when">${a.when}</span>
             ${isNew ? '<span class="tag tag-new">New</span>' : ''}
           </div>
@@ -862,7 +757,7 @@ function communityView() {
     </div>
 
     <ul class="posts">
-      ${posts.length ? posts.map(postItem).join('') : `<li class="empty-posts"><p>Nothing here yet. Start one — someone’s probably wondering the same thing.</p></li>`}
+      ${posts.length ? posts.map(postItem).join('') : `<li class="empty-posts"><p>Nothing here yet. Start one. Someone’s probably wondering the same thing.</p></li>`}
     </ul>
   </div>`;
 }
@@ -922,13 +817,14 @@ function profileView() {
     <section class="profile">
       <div class="profile-photo">${avatar(u, 112)}</div>
       <h1>${esc(u.name)}</h1>
+      <p class="profile-role">${esc(u.role)}</p>
       <p class="profile-bio">${u.bio ? esc(u.bio) : '<span class="quiet">Add a line about what you’re working on lately.</span>'}</p>
-      <p class="profile-since">${mark({ size: 14 })} Pace since Summer 2026</p>
+      <p class="profile-since">${mark({ size: 14 })} Pace since ${esc(u.since)}</p>
       <button class="btn btn-outline btn-sm" data-action="edit-profile">${icon.edit(16)} Edit profile</button>
     </section>
 
     <dl class="profile-facts">
-      <div><dt>Paddles</dt><dd>${next ? 'First one coming up' : 'None yet'}</dd></div>
+      <div><dt>Paddles</dt><dd>${u.paddles} paddle${u.paddles === 1 ? '' : 's'}</dd></div>
       <div><dt>Next</dt><dd>${next ? `<a href="#/app/sessions/${next.id}">${next.day}, ${next.name}</a>` : '<a href="#/app/sessions">Find a paddle</a>'}</dd></div>
     </dl>
 
@@ -957,7 +853,7 @@ function profileView() {
 
     <div class="profile-tools">
       <button class="link-btn" data-action="reset-demo">Reset the demo</button>
-      <button class="link-btn" data-action="sign-out">${icon.logout(16)} Sign out</button>
+      <a class="link-btn" href="#/">${icon.arrowLeft(16)} Back to the site</a>
     </div>
   </div>`;
 }
@@ -1014,7 +910,7 @@ function bookSheet(s) {
         <div><dt>${icon.pin(18)}</dt><dd>${s.location}<small>Jericho SUP, by the sailing centre</small></dd></div>
         <div><dt>${weatherIcon(w)}</dt><dd>${w.temp}°C, ${w.sky.toLowerCase()}<small>Sunset ${w.sunset}</small></dd></div>
       </dl>
-      <p class="sheet-note">${icon.board(18)} Board, paddle and PFD are provided by Jericho SUP. If plans change, cancel any time so someone else can come.</p>
+      <p class="sheet-note">${icon.board(18)} Pace books your board, paddle and PFD at Jericho SUP. If plans change, cancel any time so someone else can come.</p>
       <div class="sheet-actions">
         <button class="btn btn-quiet" data-action="close-sheet">Not now</button>
         <button class="btn btn-dark btn-lg" data-action="confirm-book" data-id="${s.id}" data-autofocus>Book paddle</button>
@@ -1046,7 +942,7 @@ function cancelSheet(s) {
   openSheet(`
     <div class="sheet-body">
       <h2>Give up your spot?</h2>
-      <p class="sheet-lede">${s.day}’s ${s.name.toLowerCase()} at ${s.time}. Someone on the waitlist will get it. No hard feelings — there’s always next week.</p>
+      <p class="sheet-lede">${s.day}’s ${s.name.toLowerCase()} at ${s.time}. Someone on the waitlist will get it. No hard feelings, there’s always next week.</p>
       <div class="sheet-actions">
         <button class="btn btn-quiet" data-action="close-sheet" data-autofocus>Keep my spot</button>
         <button class="btn btn-outline btn-danger" data-action="confirm-cancel" data-id="${s.id}">Cancel my spot</button>
@@ -1115,7 +1011,7 @@ function downloadICS(s) {
     `UID:${s.id}@pace.prototype`,
     `DTSTART;TZID=America/Vancouver:${fmt(s.startISO)}`,
     `DTEND;TZID=America/Vancouver:${fmt(s.endISO)}`,
-    `SUMMARY:Pace — ${s.name}`,
+    `SUMMARY:Pace: ${s.name}`,
     `LOCATION:Jericho SUP\\, Jericho Beach\\, Vancouver`,
     `DESCRIPTION:Meet at ${s.meet}. Bring a swimsuit\\, towel and water. See you on the water.`,
     'END:VEVENT', 'END:VCALENDAR',
@@ -1178,16 +1074,6 @@ document.addEventListener('click', (e) => {
         document.getElementById('waitlist-body').innerHTML = waitlistBody();
         document.getElementById('wl-email')?.focus();
         return;
-      case 'provider': {
-        draft.provider = el.dataset.provider;
-        el.classList.add('is-loading');
-        el.querySelector('span').textContent = `Connecting to ${draft.provider}…`;
-        document.querySelectorAll('.provider').forEach((b) => (b.disabled = true));
-        setTimeout(() => { joinStep = 2; render(); document.getElementById('f-name')?.focus(); }, 750);
-        return;
-      }
-      case 'join-back': joinStep = 1; render(); return;
-      case 'enter-app': joinStep = 1; go('#/app/sessions'); return;
       case 'book': bookSheet(sessionById(id)); return;
       case 'confirm-book': {
         const s = sessionById(id);
@@ -1248,14 +1134,9 @@ document.addEventListener('click', (e) => {
       case 'edit-profile': editProfileSheet(); return;
       case 'reset-demo':
         resetDemo();
-        joinStep = 1;
-        draft = { name: '', bio: '', photo: '', provider: '' };
-        toast('Demo reset.');
-        go('#/join');
-        return;
-      case 'sign-out':
-        signOut();
-        go('#/');
+        communityFilter = 'all';
+        render();
+        toast('Demo reset to the sample member.');
         return;
     }
   }
@@ -1318,7 +1199,7 @@ document.addEventListener('submit', (e) => {
     return;
   }
 
-  if (kind === 'profile' || kind === 'edit-profile') {
+  if (kind === 'edit-profile') {
     const name = draft.name.trim();
     if (!name) {
       document.getElementById('profile-error').textContent = 'Add your first name so people know who to say hi to.';
@@ -1326,16 +1207,17 @@ document.addEventListener('submit', (e) => {
       return;
     }
     const prev = getState().user || {};
-    setState({ user: { ...prev, name, bio: draft.bio.trim(), photo: draft.photo, provider: draft.provider || prev.provider || 'Google', joined: prev.joined || Date.now() } });
-    if (kind === 'profile') { joinStep = 3; render(); }
-    else { closeSheet(); render(); toast('Profile saved.'); }
+    setState({ user: { ...prev, name, bio: draft.bio.trim(), photo: draft.photo } });
+    closeSheet();
+    render();
+    toast('Profile saved.');
     return;
   }
 
   if (kind === 'post') {
     const ta = form.querySelector('textarea');
     const text = ta.value.trim();
-    if (!text) { ta.focus(); ta.placeholder = 'Write something first — a question, an offer, a plan.'; return; }
+    if (!text) { ta.focus(); ta.placeholder = 'Write something first: a question, an offer, a plan.'; return; }
     const post = { id: `me-${Date.now()}`, kind: composeKind, text, when: 'Just now', with: [] };
     setState((st) => ({ posts: [post, ...st.posts] }));
     communityFilter = 'all';
